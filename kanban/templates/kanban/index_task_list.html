@@ -1,0 +1,80 @@
+<div class="card bg-light" ondrop="drop(event,'{{ title }}')" ondragover="allowDrop(event)">
+    <div class="card-body">
+        <h6 class="card-title text-uppercase text-truncate py-2">{{ title }}</h6>
+        <div class="items border border-light">
+            {% if task_list %}
+                {% for task in task_list %}
+                <div class="card draggable shadow-sm" draggable="true" ondragend="dropTask(event,'{{ title }}','{{ task.uuid }}')">
+                  {% include 'kanban/index_task_panel.html' with task=task %}
+                </div>
+                <div class="dropzone rounded" >
+                  &nbsp;
+              </div>
+                {% endfor %}
+            {% else %}
+                No Tasks Present
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    <script>
+        var task_board_name_new;
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+        function drop(event, task_board_name) {
+            console.log('Task board name switch --> ', task_board_name)
+            task_board_name_new = task_board_name
+            event.preventDefault();
+        }
+        function dropTask(event, task_board_name_current, uuid) {
+            const Http = new XMLHttpRequest();
+            console.log(task_board_name_new, uuid,)
+            console.log('Current task board : ', task_board_name_current)
+            var start_board = 0
+            var end_board = 0
+
+
+
+            switch (task_board_name_current) {
+                case 'Tasks To Do': start_board = 1;
+                    break;
+                case 'Tasks In Progress': start_board = 2;
+                    break;
+                case 'Tasks In Testing': start_board = 3;
+                    break;
+                case 'Tasks Done': start_board = 4;
+                    break;
+            }
+
+            switch (task_board_name_new) {
+                case 'Tasks To Do': end_board = 1;
+                    break;
+                case 'Tasks In Progress': end_board = 2;
+                    break;
+                case 'Tasks In Testing': end_board = 3;
+                    break;
+                case 'Tasks Done': end_board = 4;
+                    break;
+            }
+
+            var diff = end_board - start_board
+
+            if (diff > 0) {
+                for (let i = 0; i < diff; i++) {
+                    console.log(i)
+                    document.location.href = '/task/actions/increase_status/' + uuid
+                }
+            }
+            if (diff < 0) {
+                for (let i = 0; i < Math.abs(diff); i++) {
+                    console.log(i)
+                    window.location.href = '/task/actions/decrease_status/' + uuid
+                }
+            }
+            console.log(start_board, end_board, end_board - start_board);
+
+            // document.location.href = 'task/edit/' + uuid
+
+        }
+    </script>

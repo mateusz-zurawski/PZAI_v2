@@ -1,0 +1,32 @@
+{% extends 'kanban/kanban_base.html' %}
+{% load widget_tweaks %}
+{% block title %}
+    Add Task
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card">
+                <div
+                    class="card-body">
+                    <h2>Add Task</h2>
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="row justify-content-center py-md-5">
+                            <form method="post" novalidate>
+                                {% csrf_token %}
+                                {% for field in form.visible_fields %}
+                                    {{ field.label_tag }}
+                                    <!-- {{ field|add_class:'form-control' }} -->
+                                    {% render_field field class="form-control" %}
+                                {% endfor %}
+                                <br/>
+                                <button type="submit" class="btn btn-primary" value="Save" >Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'kanban/kanban_base.html' %}
+
+{% block title %}Task:
+    {{ task.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Task:
+                        {{ task.title }}</h2>
+                    <strong>Status:
+                        {{ task.get_status_display }}
+                        |</strong>
+                    <a href="{% url 'task-edit' task.uuid %}">Edit</a>
+                    <a href="{% url 'index' %}">Back To Board</a>
+
+                    <hr>
+
+
+                        <p>
+                            <strong>Description</strong>
+                            <br>
+                                {{ task.description }}
+                            </p>
+
+                            <p>
+                                <strong>Comments</strong>
+                                <br>
+                                    <a href="{% url 'taskcomment-add-specific' task_pk=task.uuid %}">Add Comment</a>
+                                    {% if task.taskcomment_set.all %}
+                                        <ul>
+                                            {% for task_comment in task.taskcomment_set.all %}
+                                                <li>
+                                                    <p>
+                                                        {{ task_comment.text }}</p>
+                                                    {{ task_comment.author }}
+                                                    -
+                                                    {{ task_comment.date_created }}
+                                                    -
+                                                    <a href="{% url 'taskcomment-edit-specific' pk=task_comment.pk %}">
+                                                        Edit</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </p>
+
+                                <p>
+                                    Author:
+                                    {{ task.author }}
+                                    <br>
+                                        Date Created:
+                                        {{ task.date_created }}
+                                        <br>
+                                            Last Modified:
+                                            {{ task.date_modified }}
+                                            <br></p>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        {% endblock %}
+                    </p>

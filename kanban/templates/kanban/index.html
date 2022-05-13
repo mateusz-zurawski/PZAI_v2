@@ -1,0 +1,90 @@
+{% extends 'kanban/kanban_base.html' %}
+
+
+{% block title %}
+    Kanban Board
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Django Kanban boards</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    {% if user.is_authenticated %}
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'index' %}">All Tasks
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'user-tasks' %}">My Tasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'task-add' %}">Add Task</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <span class="navbar-text">
+                    {% if user.is_authenticated %}
+                        <strong>{{ user.username|capfirst }}</strong>
+                        <a href="{% url 'accounts-logout' %}">Logout</a>
+                    {% else %}
+                        <a href="{% url 'accounts-login' %}">Login</a>
+                    {% endif %}
+                </span>
+            </div>
+        </nav>
+
+        <div class="row">
+            <h1>Django Kanban Board ...
+            </h1>
+            <!-- <div>
+                                        {% if user.is_authenticated %}
+                                            <strong>{{ user.username|capfirst }}</strong>
+                                            <a href="{% url 'accounts-logout' %}">Logout</a>
+                                            |<a href="{% url 'index' %}">
+                                                All Tasks</a>
+                                            |<a href="{% url 'user-tasks' %}">
+                                                My Tasks</a>
+                                            |<a href="{% url 'task-add' %}">
+                                                Add Task</a>
+                                        {% else %}
+                                            <a href="{% url 'accounts-login' %}">Login</a>
+                                        {% endif %}
+                        
+                        
+                                    </div> -->
+
+        </div>
+
+        <div class="container-fluid pt-3">
+            <h3 class="font-weight-light text-white">Kanban Board</h3>
+            <div class="small  text-light">Drag and drop between swim lanes</div>
+            <div class="row flex-row flex-sm-nowrap py-3">
+                <!-- <div class="row justify-content-center"> -->
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        {% include 'kanban/index_task_list.html' with task_list=TODO_list title='Tasks To Do' %}
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        {% include 'kanban/index_task_list.html' with task_list=PROG_list title='Tasks In Progress' %}
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        {% include 'kanban/index_task_list.html' with task_list=TEST_list title='Tasks In Testing' %}
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        {% include 'kanban/index_task_list.html' with task_list=DONE_list title='Tasks Done' %}
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+<div class="card-body p-2">
+    <div class="card-title">
+        <div class="card-header text-white bg-primary" > 
+            <img src="//via.placeholder.com/30" class="rounded-circle float-right">
+                <h5>
+                    <a href="{% url 'task-detail' pk=task.uuid %}" class="lead font-weight-light" style="color: white">{{ task.title|slice:":45" }}</a>
+                </h5>
+                <small>{{ task.date_created }}
+                    |
+                    {{ task.author }}<br></small>
+                </div>
+            </div>
+            <p class="card-text">
+
+                {% if task.description %}
+                    {{ task.description|slice:":120" }}
+                    {% if task.description|length > 120 %}
+                        ...
+                    {% endif %}
+                {% else %}
+                    ...
+                {% endif %}
+
+            </p>
+            <div class="card-footer bg-white   border-dark ">
+                <small>
+                    <a href="{% url 'task-action-decrease_status' pk=task.uuid %}">
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                    </i>
+                </a>
+                <a href="{% url 'task-action-increase_status' pk=task.uuid %}">
+                    <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                </a>
+                <a href="{% url 'task-action-max_priority' pk=task.uuid %}">Top</a>
+                <a href="{% url 'task-action-min_priority' pk=task.uuid %}">Bottom</a>
+                <a href="{% url 'task-action-increase_priority' pk=task.uuid %}">
+                    <i class="fa fa-hand-o-up" aria-hidden="true"></i>
+                </a>
+                <a href="{% url 'task-action-decrease_priority' pk=task.uuid %}">
+                    <i class="fa fa-hand-o-down" aria-hidden="true"></i>
+                </a>
+                <a href="{% url 'task-edit' pk=task.uuid %}">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <a href="{% url 'task-edit' pk=task.uuid %}">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </a>
+
+            </small>
+        </div>
+    </div>
