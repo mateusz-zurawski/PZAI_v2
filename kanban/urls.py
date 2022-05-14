@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path,include
 from django.contrib.auth import views as auth_views
+from psycopg2 import paramstyle
 from . import views
 
 urlpatterns = [
@@ -44,5 +45,6 @@ account_views = [
     path('accounts/logout/', views.KanbanLogout.as_view(), name='accounts-logout'),
 #     path('accounts/sign_up/', views.KanbanSignUp.as_view(), name='accounts-sign_up'),
     path('accounts/sign_up/', views.KanbanSignUp.as_view(), name='accounts-sign_up'),
+    path('accounts/activate/<id>',  views.activate, name='activate'),
 ]
 urlpatterns += account_views

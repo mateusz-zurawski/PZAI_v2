@@ -22,10 +22,10 @@
                             <h2>Sign up</h2>
                             <form method="post" novalidate>
                                 {% csrf_token %}
+                                <!-- {{ form }} -->
                                 {% for field in form.visible_fields %}
                                     {{ field.label_tag }}
-                                    <!-- {{ field|add_class:'form-control' }} -->
-                                    {% render_field field class="form-control" %}
+                                    {{ field|add_class:'form-control' }} 
                                 {% endfor %}
                                 <br/>
                                 <button type="submit" class="btn btn-primary">Sign Up</button>
