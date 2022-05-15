@@ -45,6 +45,17 @@
         <div class="row">
             <h1>Django Kanban Board ...
             </h1>
+            <form method="get">
+                <ul>
+                    {% for gr in user.groups.all %}
+                  <li>
+                    <button type="submit" class="button" name="genre" value="{{ genre.id }}">
+                        {{gr.name}}
+                    </button>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </form>
             <!-- <div>
                                         {% if user.is_authenticated %}
                                             <strong>{{ user.username|capfirst }}</strong>

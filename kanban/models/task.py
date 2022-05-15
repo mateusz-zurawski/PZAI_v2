@@ -1,9 +1,10 @@
 import datetime
+from tokenize import group
 import uuid
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.db import models
-
+from django.contrib.auth.models import Group
 
 class Task(models.Model):
     class Meta:
@@ -40,13 +41,25 @@ class Task(models.Model):
     }
     users_toulpe = {('No Author','No Author')}
 
+
     for user in users:
         print (user.username)
         users_toulpe.add((user.username,user.username))
     print(users_toulpe)
+
+    groups_toulpe = {('all','all')}
+    groups = Group.objects.all()
+
+    for group in groups:
+        print(group.name)
+        groups_toulpe.add((group.name,group.name))
+    print(groups_toulpe)
+
     author = models.CharField(max_length=200, choices =users_toulpe, default='No_Author')
+    group = models.CharField(max_length=200, choices =groups_toulpe, default='ALL')
 
 
+    
     def __str__(self):
         return '{title}'.format(title=self.title)
 
