@@ -45,34 +45,37 @@
         <div class="row">
             <h1>Django Kanban Board ...
             </h1>
+            {% if "/accounts/tasks/" in request.path %}
+            <h2>1</h2>
+            {{ request.get_full_path }}
             <form method="get">
                 <ul>
                     {% for gr in user.groups.all %}
                   <li>
-                    <button type="submit" class="button" name="genre" value="{{ genre.id }}">
-                        {{gr.name}}
-                    </button>
+                    <a href="{% url 'user-tasks-groups' gr.name %}">{{gr.name}}</a>
                   </li>
                   {% endfor %}
+                  <a href="{% url 'user-tasks' %}">all</a>
                 </ul>
               </form>
-            <!-- <div>
-                                        {% if user.is_authenticated %}
-                                            <strong>{{ user.username|capfirst }}</strong>
-                                            <a href="{% url 'accounts-logout' %}">Logout</a>
-                                            |<a href="{% url 'index' %}">
-                                                All Tasks</a>
-                                            |<a href="{% url 'user-tasks' %}">
-                                                My Tasks</a>
-                                            |<a href="{% url 'task-add' %}">
-                                                Add Task</a>
-                                        {% else %}
-                                            <a href="{% url 'accounts-login' %}">Login</a>
-                                        {% endif %}
-                        
-                        
-                                    </div> -->
-
+              
+            {% else %}
+            <h2>2</h2>
+            {{ request.get_full_path }}
+              <form method="get">
+                  <ul>
+                      {% for gr in user.groups.all %}
+                    <li>
+                      <a href="{% url 'all-tasks-groups' gr.name %}">{{gr.name}}</a>
+                    </li>
+                    {% endfor %}
+                    <li>
+                        <a href="{% url 'all-tasks-groups' 'all'%}">all</a>
+                    </li>
+                    
+                  </ul>
+                </form>
+                {% endif %}
         </div>
 
         <div class="container-fluid pt-3">

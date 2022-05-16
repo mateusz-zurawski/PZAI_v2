@@ -10,7 +10,8 @@ from .kanbanLogout import KanbanLogout
 from .userTasks import UserTasks
 from .kanbanSignUp import KanbanSignUp
 from django.http import HttpResponse  
-
+from .userTasksGroups import UserTasksGroups
+from .allTasksGroup import AllTasksGroup
 from django.contrib.auth import get_user_model
 
 def activate(request,id):  
