@@ -12,6 +12,8 @@ task_crud_patterns = [
     path('task/add', views.TaskCreate.as_view(), name='task-add'),
     path('task/edit/<uuid:pk>', views.TaskUpdate.as_view(), name='task-edit'),
     path('task/delete/<uuid:pk>', views.TaskDelete.as_view(), name='task-delete'),
+    path('task/archive/<uuid:pk>', views.TaskArchive.as_view(), name='task-archive'),
+    path('task/restore/<uuid:pk>', views.TaskRestore.as_view(), name='task-restore'),
 ]
 urlpatterns += task_crud_patterns
 

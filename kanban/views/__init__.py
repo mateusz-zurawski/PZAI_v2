@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from .userTasksGroups import UserTasksGroups
 from .allTasksGroup import AllTasksGroup
 from django.contrib.auth import get_user_model
+from .taskArchive import TaskArchive, TaskRestore
 
 def activate(request,id):  
     User = get_user_model()  
