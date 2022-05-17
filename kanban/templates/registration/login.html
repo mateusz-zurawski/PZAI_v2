@@ -14,49 +14,42 @@
 
 {% if next %}
     {% if user.is_authenticated %}
-        <p>Your account doesn't have access to this page. To proceed,
-                                                                                            please login with an account that has access.</p>
+        <p>Your account doesn't have access to this page. To proceed,please login with an account that has access.</p>
     {% else %}
-        <section class="ftco-section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-12">
-                        <div class="wrap d-md-flex">
-                            <div class="text-wrap p-4 p-lg-5 d-flex img" style="background-image: url({% static 'images/bg.jpg' %}); ">
-                                <div class="text w-100">
-                                    <h2 class="mb-4">Welcome to Task board app</h2>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        <div class="img js-fullheight" style="background-image: url({% static 'images/bg.jpg' %}); ">
+            <section class="ftco-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 text-center mb-5">
+                            <h2 class="heading-section">Login</h2>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="login-wrap p-0">
+                                <h3 class="mb-4 text-center">Have an account?</h3>
+                                <form action="{% url 'accounts-login' %}" method="post" class="signup-form">
+                                    {% csrf_token %}
+                                    {% for field in form.visible_fields %}
+                                        {{ field.label_tag }}
+                                        {% render_field field class="form-control" %}
+                                    {% endfor %}
+                                    <br/>
+                                    <button type="submit" class="form-control btn btn-primary submit px-3" value="login">Sign In</button>
+                                    <input type="hidden" name="next" value="{{ next }}"/>
                                 </div>
+                            </form>
+
+                            <div class="w-100">
+                                <p class="mt-4 text-center">&mdash;<a type="primary" href="{% url 'accounts-sign_up' %}" style="color:#000000; text-decoration:none">Sign Up</a>
+                                    &mdash;</p>
+                                </p>
                             </div>
-                            <div class="login-wrap p-4 p-md-5">
-                                <div class="row justify-content-center py-md-5">
-                                    <div class="col-lg-9">
-                                        <div class="social-wrap">
-                                            <h3 class="mb-3 text-center">Sign in to app</h3>
-                                        </div>
-                                        <form action="{% url 'accounts-login' %}" method="post" class="signup-form">
-                                            {% csrf_token %}
-                                            {% for field in form.visible_fields %}
-                                                {{ field.label_tag }}
-                                                <!-- {{ field|add_class:'form-control' }} -->
-                                                {% render_field field class="form-control" %}
-                                            {% endfor %}
-                                            <br/>
-                                            <button type="submit" class="btn btn-primary" value="login">Sign In</button>
-                                            <input type="hidden" name="next" value="{{ next }}"/>
-                                        </div>
-                                    </form>
-                                    <div class="w-100">
-                                        <p class="mt-4">New in app?
-                                            <a type="primary" href="{% url 'accounts-sign_up' %}">Sign Up</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 {% endif %}{% endif %}{% endblock %}

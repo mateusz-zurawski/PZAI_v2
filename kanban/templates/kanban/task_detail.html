@@ -52,6 +52,9 @@
                                     Author:
                                     {{ task.author }}
                                     <br>
+                                    Group:
+                                    {{ task.group}}
+                                    <br>
                                         Date Created:
                                         {{ task.date_created }}
                                         <br>
@@ -62,18 +65,10 @@
 
                                         </div>
                                     </div>
-                                    <h3>archive2</h3>
-                                    <!-- <button type="submit" class="btn btn-danger" value="Archive" formaction="{% url 'task-archive' pk=task.pk %}" >Archive</button> -->
-                                    {% if task.archive is True or user.is_superuser %}
-                                        <a href="{% url 'task-restore' pk=task.pk %}">restore</a>
-
-                                    {% else %}
-                                        <a href="{% url 'task-archive' pk=task.pk %}">archives</a>
-                                        {% endif %}
-                                    </div>
                                 </div>
+                            </div>
 
 
-                            {% endblock %}
-                        </p>
+                        {% endblock %}
                     </p>
+                </p>

@@ -9,11 +9,11 @@
     <div
         class="container">
         <!-- {% if form.errors %}
-                                        <p>Your username and password didn't match. Please try again.</p>
-                                    {% endif %} -->
+                                                        <p>Your username and password didn't match. Please try again.</p>
+                                                    {% endif %} -->
         {% if user.is_authenticated %}
             <p>Your account doesn't have access to this page. To proceed,
-                                                                                                                                                        please login with an account that has access.</p>
+                                                                                                                                                                                        please login with an account that has access.</p>
         {% else %}
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -25,12 +25,15 @@
                                 <!-- {{ form }} -->
                                 {% for field in form.visible_fields %}
                                     {{ field.label_tag }}
-                                    {{ field|add_class:'form-control' }} 
+                                    {{ field|add_class:'form-control' }}
                                 {% endfor %}
                                 <br/>
                                 <button type="submit" class="btn btn-primary">Sign Up</button>
+                                <button type="button" class="btn btn-secondary">
+                                    <a type="primary" href="{% url 'accounts-login' %}" style="color:#ffffff; text-decoration:none">Login</a>
+                                </button>
                             </form>
-                            <a type="primary" href="{% url 'accounts-login' %}">Login</a>
+
                         </p>
                     </div>
                 </div>

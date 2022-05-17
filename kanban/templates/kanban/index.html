@@ -18,7 +18,7 @@
                 <ul class="navbar-nav mr-auto">
                     {% if user.is_authenticated %}
 
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'index' %}">All Tasks
                                 <span class="sr-only">(current)</span>
                             </a>
@@ -33,68 +33,74 @@
                 </ul>
                 <span class="navbar-text">
                     {% if user.is_authenticated %}
-                        <strong>{{ user.username|capfirst }}</strong>
-                        <a href="{% url 'accounts-logout' %}">Logout</a>
+                        <strong>{{ user.email }}</strong>
+                        <button type="button" class="btn btn-outline-light">
+                            <a href="{% url 'accounts-logout' %}" style="text-decoration:none">Logout</a>
+                        </button>
                     {% else %}
-                        <a href="{% url 'accounts-login' %}">Login</a>
+                        <button type="button" class="btn btn-outline-light">
+                            <a href="{% url 'accounts-login' %}" style="text-decoration:none">Login</a>
+                        </button>
                     {% endif %}
                 </span>
             </div>
         </nav>
 
         <div class="row">
-            <h1>Django Kanban Board ...
-            </h1>
-            {% if "/accounts/tasks/" in request.path %}
-            <h2>1</h2>
-            {{ request.get_full_path }}
-            <form method="get">
-                <ul>
-                    {% for gr in user.groups.all %}
-                  <li>
-                    <a href="{% url 'user-tasks-groups' gr.name %}">{{gr.name}}</a>
-                  </li>
-                  {% endfor %}
-                  <a href="{% url 'user-tasks' %}">all</a>
-                </ul>
-              </form>
-              
-            {% else %}
-            <h2>2</h2>
-            {{ request.get_full_path }}
-              <form method="get">
-                  <ul>
-                      {% for gr in user.groups.all %}
-                    <li>
-                      <a href="{% url 'all-tasks-groups' gr.name %}">{{gr.name}}</a>
-                    </li>
-                    {% endfor %}
-                    <li>
-                        <a href="{% url 'all-tasks-groups' 'all'%}">all</a>
-                    </li>
-                    
-                  </ul>
+            <h2>Dashboard groups
+                <span class="badge badge-info">
+                    {% if "/accounts/tasks/" in request.path %}
+                        My task
+                    {% else %}
+                        All tasks
+                    {% endif %}
+                </span>
+            </h2>
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <form method="get" class="form-group">
+                    {% if "/accounts/tasks/" in request.path %}
+                        <span class="badge badge-info">
+                            <a href="{% url 'user-tasks' %}" style="color:#ffffff; text-decoration:none">My tasks</a>
+                        </span>
+                        {% for gr in user.groups.all %}
+                            <span class="badge badge-info">
+                                <a href="{% url 'user-tasks-groups' gr.name %}" style="color:#ffffff; text-decoration:none">{{ gr.name }}</a>
+                            </span>
+                        {% endfor %}
+                    {% else %}
+                        <span class="badge badge-info">
+                            <a href="{% url 'all-tasks-groups' 'all' %}" style="color:#ffffff; text-decoration:none">All tasks</a>
+                        </span>
+                        {% for gr in user.groups.all %}
+                            <span class="badge badge-info">
+                                <a href="{% url 'all-tasks-groups' gr.name %}" style="color:#ffffff; text-decoration:none">{{ gr.name }}</a>
+                            </span>
+                        {% endfor %}
+                    {% endif %}
                 </form>
-                {% endif %}
+
+            </div>
         </div>
 
         <div class="container-fluid pt-3">
             <h3 class="font-weight-light text-white">Kanban Board</h3>
             <div class="small  text-light">Drag and drop between swim lanes</div>
-            <div class="row flex-row flex-sm-nowrap py-3">
+            <div
+                class="row flex-row flex-sm-nowrap py-3">
                 <!-- <div class="row justify-content-center"> -->
-                    <div class="col-sm-6 col-md-4 col-xl-3">
-                        {% include 'kanban/index_task_list.html' with task_list=TODO_list title='Tasks To Do' %}
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-xl-3">
-                        {% include 'kanban/index_task_list.html' with task_list=PROG_list title='Tasks In Progress' %}
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-xl-3">
-                        {% include 'kanban/index_task_list.html' with task_list=TEST_list title='Tasks In Testing' %}
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-xl-3">
-                        {% include 'kanban/index_task_list.html' with task_list=DONE_list title='Tasks Done' %}
-                    </div>
+                <div class="col-sm-6 col-md-4 col-xl-3">
+                    {% include 'kanban/index_task_list.html' with task_list=TODO_list title='Tasks To Do' %}
+                </div>
+                <div class="col-sm-6 col-md-4 col-xl-3">
+                    {% include 'kanban/index_task_list.html' with task_list=PROG_list title='Tasks In Progress' %}
+                </div>
+                <div class="col-sm-6 col-md-4 col-xl-3">
+                    {% include 'kanban/index_task_list.html' with task_list=TEST_list title='Tasks In Testing' %}
+                </div>
+                <div class="col-sm-6 col-md-4 col-xl-3">
+                    {% include 'kanban/index_task_list.html' with task_list=DONE_list title='Tasks Done' %}
+                </div>
                 <!-- </div> -->
             </div>
         </div>

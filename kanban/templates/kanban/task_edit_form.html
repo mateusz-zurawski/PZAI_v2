@@ -13,15 +13,31 @@
                     <form method="post" novalidate>
                         {% csrf_token %}
                         {% for field in form.visible_fields %}
-                            {{ field.label_tag }}
-                            <!-- {{ field|add_class:'form-control' }} -->
-                            {% render_field field class="form-control" %}
+                            {% if field.label == 'Priority' or field.label == 'Title' or field.label == 'Description' or field.label == 'Status' or field.label == 'Author' or field.label == 'Group' %}
+                                {{ field.label_tag }}
+                                {% render_field field class="form-control" %}
+                            {% else %}
+                                {{ field.as_hidden }}
+                            {% endif %}
                         {% endfor %}
                         <br/>
-                        <button type="submit" class="btn btn-primary" value="Save" >Save</button>
-                        <button type="submit" class="btn btn-danger" value="Delete" formaction="{% url 'task-delete' pk=task.pk %}" >Delete</button>
-                    </form>
+                        <button type="submit" class="btn btn-primary" value="Save">Save</button>
                         
+
+                        {% if task.archive is True or user.is_superuser %}
+
+                            <button  type="button" class= "btn btn-success">
+                                <a href="{% url 'task-restore' pk=task.pk %}" style="color:#ffffff; text-decoration:none">Restore</a>
+                            </button>
+                            <button type="submit" class="btn btn-danger" value="Delete" formaction="{% url 'task-delete' pk=task.pk %}">Delete</button>
+                        {% else %}
+                            <button type="button" class="btn btn-danger">
+                                <a href="{% url 'task-archive' pk=task.pk %}" style="color:#ffffff; text-decoration:none">Archive</a>
+                            </button>
+                        {% endif %}
+
+                    </form>
+
                 </div>
             </div>
         </div>
