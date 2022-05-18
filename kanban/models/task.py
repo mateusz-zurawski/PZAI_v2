@@ -47,7 +47,7 @@ class Task(models.Model):
         users_toulpe.add((user.username,user.username))
     print(users_toulpe)
 
-    groups_toulpe = {('all','all')}
+    groups_toulpe = {('default','default')}
     groups = Group.objects.all()
 
     for group in groups:
@@ -56,7 +56,7 @@ class Task(models.Model):
     print(groups_toulpe)
 
     author = models.CharField(max_length=200, choices =users_toulpe, default='No_Author')
-    group = models.CharField(max_length=200, choices =groups_toulpe, default='all')
+    group = models.CharField(max_length=200, choices =groups_toulpe, default='default')
     archive = models.BooleanField(default=False)
 
     
