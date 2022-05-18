@@ -56,7 +56,7 @@ class Task(models.Model):
     print(groups_toulpe)
 
     author = models.CharField(max_length=200, choices =users_toulpe, default='No_Author')
-    group = models.CharField(max_length=200, choices =groups_toulpe, default='ALL')
+    group = models.CharField(max_length=200, choices =groups_toulpe, default='all')
     archive = models.BooleanField(default=False)
 
     
