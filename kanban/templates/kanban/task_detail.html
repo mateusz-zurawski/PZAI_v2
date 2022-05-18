@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
@@ -14,8 +15,12 @@
                     <strong>Status:
                         {{ task.get_status_display }}
                         |</strong>
-                    <a href="{% url 'task-edit' task.uuid %}">Edit</a>
-                    <a href="{% url 'index' %}">Back To Board</a>
+                    <button type="button" class="btn btn-primary">
+                        <a href="{% url 'task-edit' task.uuid %}" style="color:#ffffff; text-decoration:none">Edit</a>
+                    </button>
+                    <button type="button" class="btn btn-secondary">
+                        <a href="{% url 'index' %}" style="color:#ffffff; text-decoration:none">Back To Board</a>
+                    </button>
 
                     <hr>
 
@@ -52,23 +57,23 @@
                                     Author:
                                     {{ task.author }}
                                     <br>
-                                    Group:
-                                    {{ task.group}}
-                                    <br>
-                                        Date Created:
-                                        {{ task.date_created }}
+                                        Group:
+                                        {{ task.group }}
                                         <br>
-                                            Last Modified:
-                                            {{ task.date_modified }}
-                                            <br></p>
+                                            Date Created:
+                                            {{ task.date_created }}
+                                            <br>
+                                                Last Modified:
+                                                {{ task.date_modified }}
+                                                <br></p>
 
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
 
-                        {% endblock %}
+                            {% endblock %}
+                        </p>
                     </p>
-                </p>

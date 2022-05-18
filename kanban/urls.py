@@ -46,6 +46,9 @@ account_views = [
     path('accounts/tasks/<group>', views.UserTasksGroups.as_view(), name='user-tasks-groups'),
     path('/<group>', views.AllTasksGroup.as_view(), name='all-tasks-groups'),
     
+    path('/users/',views.KanbanUsers.as_view(),name ='user-users' ),
+    path('/users/<name>/<group>/<param>',views.mod_group,name ='user-gr' ),
+
     path('accounts/login/', views.KanbanLogin.as_view(), name='accounts-login'),
     path('accounts/logout/', views.KanbanLogout.as_view(), name='accounts-logout'),
 #     path('accounts/sign_up/', views.KanbanSignUp.as_view(), name='accounts-sign_up'),
